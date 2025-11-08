@@ -41,4 +41,4 @@ class SearchUsersTool(BaseUserServiceTool):
         try:
             return self._user_client.search_users(**arguments)
         except Exception as e:
-            return f"Error while deleting a new user: {str(e)}"
+            return f"Error while searching for a user: {str(e)}"

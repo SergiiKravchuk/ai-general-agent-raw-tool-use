@@ -34,4 +34,4 @@ class DeleteUserTool(BaseUserServiceTool):
             else:
                 return f"User ID is empty, cannot proceed with User Delete operation"
         except Exception as e:
-            return f"Error while deleting a new user: {str(e)}"
+            return f"Error while deleting a user: {str(e)}"

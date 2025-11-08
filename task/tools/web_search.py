@@ -56,17 +56,13 @@ class WebSearchTool(BaseTool):
     @staticmethod
     def _payload(arguments: dict[str, Any]):
         return {
-            'model': 'gpt-4o-search-preview',
-            'messages': [{"role": "user", "content": str(arguments["request"])}],
-            'tools': [{
-                "type": "static_function",
-                "static_function": {
-                    "name": "google_search",
-                    "description": "Grounding with Google Search",
-                    "configuration": {}
-                }
-            }],
-            'temperature': 0
+            "model": "gpt-4o-search-preview",
+            "messages": [
+                {"role": "user", "content": str(arguments["request"])}
+            ],
+            "web_search_options": {
+                "search_context_size": "low"
+            }
         }
 
     def _headers(self):
