@@ -1,5 +1,7 @@
 from typing import Any
 
+from pydantic import ValidationError
+
 from task.tools.users.base import BaseUserServiceTool
 from task.tools.users.models.user_info import UserUpdate
 
@@ -8,27 +10,37 @@ class UpdateUserTool(BaseUserServiceTool):
 
     @property
     def name(self) -> str:
-        #TODO: Provide tool name as `update_user`
-        raise NotImplementedError()
+        return "update_user"
 
     @property
     def description(self) -> str:
-        #TODO: Provide description of this tool
-        raise NotImplementedError()
+        return "Creates a new User with given user attributes"
 
     @property
     def input_schema(self) -> dict[str, Any]:
-        #TODO:
-        # Provide tool params Schema:
-        # - id: number, required, User ID that should be updated.
-        # - new_info: UserUpdate.model_json_schema()
-        raise NotImplementedError()
+        return {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "User ID"
+                },
+                "new_attributes": UserUpdate.model_json_schema()
+            },
+            "required": ["id"]
+        }
 
     def execute(self, arguments: dict[str, Any]) -> str:
-        #TODO:
-        # 1. Get user `id` from `arguments`
-        # 2. Get `new_info` from `arguments` and create `UserUpdate` via pydentic `UserUpdate.model_validate`
-        # 3. Call user_client update_user and return its results
-        # 4. Optional: You can wrap it with `try-except` and return error as string `f"Error while creating a new user: {str(e)}"`
-        raise NotImplementedError()
+        try:
+            user_id = arguments.get("id", 0)
+            new_attributes = arguments.get("new_attributes", None)
+            if user_id and new_attributes:
+                validated_model = UserUpdate.model_validate(new_attributes)
+                return self._user_client.update_user(user_id, validated_model)
+            else:
+                return f"User ID is empty, cannot proceed with User Delete operation"
+        except ValidationError as validation_e:
+            return f"Invalid User attributes for creating a new User. Details: {str(validation_e)}"
+        except Exception as e:
+            return f"Error while updating user: {str(e)}"
 
