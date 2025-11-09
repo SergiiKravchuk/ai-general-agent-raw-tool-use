@@ -38,7 +38,7 @@ class WebSearchTool(BaseTool):
 
     @property
     def description(self) -> str:
-        return "Searches information on the Web"
+        return "Searches for additional public information about Users on the Web"
 
     @property
     def input_schema(self) -> dict[str, Any]:

@@ -56,7 +56,7 @@ def print_message(message: Message):
 def main():
     agent_client = agent_factory("gpt-4o")
 
-    search_user_tool_query = 'Who is Carrie Rhodes?'
+    search_user_tool_query = 'Is there any user named Carrie Rhodes?'
     websearch_user_tool_query = 'I would like to add a new user but before that please find some info about them, the name is Andrej Karpathy.'
     get_user_tool_query = 'Do we have a User with ID 303?'
     create_user_tool_query_valid = 'Create a new user with name Andrej Karpathy, email andrej.karpathy@bestai.com. He likes making videos about Generative AI and how they are built.'
