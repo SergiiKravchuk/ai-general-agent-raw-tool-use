@@ -14,7 +14,7 @@ class UpdateUserTool(BaseUserServiceTool):
 
     @property
     def description(self) -> str:
-        return "Creates a new User with given user attributes"
+        return "Updates attributes for an existing User by ID"
 
     @property
     def input_schema(self) -> dict[str, Any]:
